@@ -14,7 +14,6 @@
   
 ![img](https://github.com/caixiquan/myLinkage/blob/master/app/caozuo.gif)
 
-![Shurnim icon](https://github.com/caixiquan/myLinkage/blob/master/app/caozuo.gif)  
 主要就是调起选择边框，内置好了数据库。<br/>
 由于是第一次上线，所有的功能还未完善，接下来会慢慢改善。<br/>
 
