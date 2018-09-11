@@ -98,4 +98,4 @@ showAlertDialog(true, new CustomAlertDialog.OnAlertClickListener() {
 * Email: <caixiquan@sina.cn>  
 * QQ:417244808  
   
-项目的Bug和改进点，以issue的方式直接提交给我。
+项目的Bug和改进点，以issue的方式直接提交给我 。
