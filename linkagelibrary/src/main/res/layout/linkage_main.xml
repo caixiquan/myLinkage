@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/sheng"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="省" />
+
+        <TextView
+            android:id="@+id/shi"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="市" />
+
+        <TextView
+            android:id="@+id/qu"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="区" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewc"
+        android:layout_below="@id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33b5e5"/>
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/viewc"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/white"
+        android:numColumns="4"/>
+</RelativeLayout>
