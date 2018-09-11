@@ -35,7 +35,7 @@
 然后在项目的build.gradle中添加
 
 	dependencies {
-	    implementation 'com.github.caixiquan:myLinkage:1.0.0'
+	    implementation 'com.github.caixiquan:myLinkage:1.0.0' 
 	}
 ###使用maven方式依赖
 
