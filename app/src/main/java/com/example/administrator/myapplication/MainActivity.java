@@ -1,5 +1,7 @@
 package com.example.administrator.myapplication;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,12 +14,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView addr;
     private Button button;
     private CustomAlertDialog alertDialog;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mContext = MainActivity.this;
         /**
          * 初始化控件
          */
@@ -31,10 +34,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button:
                 alertDialog = new CustomAlertDialog(MainActivity.this);
-                showAlertDialog(true, new CustomAlertDialog.OnAlertClickListener() {
+                showAlertDialog(R.color.colorPrimary,alertDialog.THE_SECONDARY_LINKAGE, new CustomAlertDialog.OnAlertClickListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
-                    public void onQuClick(String string) {
-                        addr.setText(string);
+                    public void onQuClick(String province, String city, String district) {
+                        if (city ==  null){
+                            addr.setText(province + district);
+                        }else {
+                            addr.setText(province + city + district);
+                        }
                     }
                 });
         }
@@ -44,11 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     /**
      * 显示信息对话框
      */
-    private void showAlertDialog(boolean cancelable, CustomAlertDialog.OnAlertClickListener listener) {
+    private void showAlertDialog(int selectedColor, int type, CustomAlertDialog.OnAlertClickListener listener) {
         if (alertDialog == null) {
             alertDialog = new CustomAlertDialog(this);
         }
-        alertDialog.setCancelable(cancelable);
+        alertDialog.setContent(selectedColor,type);
         alertDialog.setOnAlertClickListener(listener);
         alertDialog.show();
     }

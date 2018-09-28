@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 public class CustomAlertDialog extends Dialog implements View.OnClickListener {
     private TextView sheng, shi, qu;
     private GridView gridview;
+    private View viewc;
     private DBManager dbm;
     private SQLiteDatabase db;
     private String province = null;// 省
@@ -34,6 +36,13 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
     private Context mContext;
     private String province_code = null;
     private int index = 0;
+    public final int THE_SECONDARY_LINKAGE = 1001;
+    public final int THE_THREE_LINKAGE = 1002;
+    private int type = 0;
+    private int selectedColor = 0;
+    private GradientDrawable shengGD;
+    private GradientDrawable shiGD;
+    private GradientDrawable quGD;
 
 
     private OnAlertClickListener listener;
@@ -55,15 +64,13 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
         shi = (TextView) findViewById(R.id.shi);
         qu = (TextView) findViewById(R.id.qu);
         gridview = (GridView) findViewById(R.id.gridview);
+        viewc = findViewById(R.id.viewc);
         sheng.setOnClickListener(this);
         shi.setOnClickListener(this);
         qu.setOnClickListener(this);
-        sheng();
-        sheng.setBackgroundColor(Color.parseColor("#33b5e5"));
-        shi.setBackgroundColor(Color.parseColor("#ffffffff"));
-        qu.setBackgroundColor(Color.parseColor("#ffffffff"));
-
-
+        shengGD = (GradientDrawable)sheng.getBackground();
+        shiGD = (GradientDrawable)shi.getBackground();
+        quGD = (GradientDrawable)qu.getBackground();
 
         // 设置宽度为屏宽、靠近屏幕底部。
         Window window = getWindow();
@@ -83,6 +90,23 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
         window.setAttributes(wlp);
     }
 
+
+    public void setContent(int selectedColor, int type) {
+        this.type = type;
+        this.selectedColor = selectedColor;
+        sheng();
+        viewc.setBackgroundColor(mContext.getResources().getColor(selectedColor));
+        shengGD.setColor(mContext.getResources().getColor(selectedColor));
+        shiGD.setColor(mContext.getResources().getColor(R.color.white));
+        if (type == THE_SECONDARY_LINKAGE){
+            qu.setVisibility(View.GONE);
+        }else if (type == THE_THREE_LINKAGE){
+            qu.setVisibility(View.VISIBLE);
+            quGD.setColor(mContext.getResources().getColor(R.color.white));
+        }
+    }
+
+
     public void setOnAlertClickListener(OnAlertClickListener listener) {
         this.listener = listener;
     }
@@ -93,9 +117,9 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
         int i = view.getId();
         if (i == R.id.sheng) {
             sheng();
-            sheng.setBackgroundColor(Color.parseColor("#33b5e5"));
-            shi.setBackgroundColor(Color.parseColor("#ffffffff"));
-            qu.setBackgroundColor(Color.parseColor("#ffffffff"));
+            shengGD.setColor(mContext.getResources().getColor(selectedColor));
+            shiGD.setColor(mContext.getResources().getColor(R.color.white));
+            quGD.setColor(mContext.getResources().getColor(R.color.white));
             province = null;
             city = null;
             index = 0;
@@ -112,9 +136,9 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
                 city = null;
                 // 通过省的编号查找该省所对应的市
                 shi(province_code);
-                sheng.setBackgroundColor(Color.parseColor("#ffffffff"));
-                shi.setBackgroundColor(Color.parseColor("#33b5e5"));
-                qu.setBackgroundColor(Color.parseColor("#ffffffff"));
+                shengGD.setColor(mContext.getResources().getColor(R.color.white));
+                shiGD.setColor(mContext.getResources().getColor(selectedColor));
+                quGD.setColor(mContext.getResources().getColor(R.color.white));
             }
 
         } else if (i == R.id.qu) {
@@ -178,35 +202,35 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
                 province_code = list.get(position).getPcode();
                 province = list.get(position).getName();
                 sheng.setText(province);
-                if (province_code.equals("110000")){
+                if (province_code.equals("110000") && type == THE_THREE_LINKAGE){
                     shi.setText("北京");
                     index = 1;
                     qu("110100");
-                    sheng.setBackgroundColor(Color.parseColor("#ffffffff"));
-                    qu.setBackgroundColor(Color.parseColor("#33b5e5"));
-                }else if (province_code.equals("120000")){
+                    shengGD.setColor(mContext.getResources().getColor(R.color.white));
+                    quGD.setColor(mContext.getResources().getColor(selectedColor));
+                }else if (province_code.equals("120000") && type == THE_THREE_LINKAGE){
                     shi.setText("天津");
                     index = 1;
                     qu("120100");
-                    sheng.setBackgroundColor(Color.parseColor("#ffffffff"));
-                    qu.setBackgroundColor(Color.parseColor("#33b5e5"));
-                }else if (province_code.equals("310000")){
+                    shengGD.setColor(mContext.getResources().getColor(R.color.white));
+                    quGD.setColor(mContext.getResources().getColor(selectedColor));
+                }else if (province_code.equals("310000") && type == THE_THREE_LINKAGE){
                     shi.setText("上海");
                     index = 1;
                     qu("310100");
-                    sheng.setBackgroundColor(Color.parseColor("#ffffffff"));
-                    qu.setBackgroundColor(Color.parseColor("#33b5e5"));
-                }else if (province_code.equals("500000")){
+                    shengGD.setColor(mContext.getResources().getColor(R.color.white));
+                    quGD.setColor(mContext.getResources().getColor(selectedColor));
+                }else if (province_code.equals("500000") && type == THE_THREE_LINKAGE){
                     shi.setText("重庆");
                     index = 1;
                     qu("500100");
-                    sheng.setBackgroundColor(Color.parseColor("#ffffffff"));
-                    qu.setBackgroundColor(Color.parseColor("#33b5e5"));
+                    shengGD.setColor(mContext.getResources().getColor(R.color.white));
+                    quGD.setColor(mContext.getResources().getColor(selectedColor));
                 }else {
                     // 通过省的编号查找该省所对应的市
                     shi(province_code);
-                    sheng.setBackgroundColor(Color.parseColor("#ffffffff"));
-                    shi.setBackgroundColor(Color.parseColor("#33b5e5"));
+                    shengGD.setColor(mContext.getResources().getColor(R.color.white));
+                    shiGD.setColor(mContext.getResources().getColor(selectedColor));
                 }
             }
         });
@@ -261,10 +285,15 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
                 String city_code = list.get(position).getPcode();
                 city = list.get(position).getName();
                 shi.setText(city);
-                qu(city_code);
-                Log.i("wujie", city_code + "的" + city);
-                shi.setBackgroundColor(Color.parseColor("#ffffffff"));
-                qu.setBackgroundColor(Color.parseColor("#33b5e5"));
+                if (type == THE_SECONDARY_LINKAGE){
+                    listener.onQuClick(province,city,"");
+                    dismiss();
+                }else  if (type == THE_THREE_LINKAGE){
+                    qu(city_code);
+                    Log.i("wujie", city_code + "的" + city);
+                }
+                shiGD.setColor(mContext.getResources().getColor(R.color.white));
+                quGD.setColor(mContext.getResources().getColor(selectedColor));
             }
         });
     }
@@ -317,11 +346,7 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
                 String district_code = list.get(position).getPcode();
                 district = list.get(position).getName();
                 qu.setText(district);
-                if (city == null){
-                    listener.onQuClick(province + district);
-                }else {
-                    listener.onQuClick(province + city + district);
-                }
+                listener.onQuClick(province,city,district);
                 dismiss();
             }
         });
@@ -329,7 +354,7 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
 
     public interface OnAlertClickListener {
 
-        void onQuClick(String string);
+        void onQuClick(String province,String city,String district);
 
     }
 }
