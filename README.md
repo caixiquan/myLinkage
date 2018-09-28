@@ -34,7 +34,7 @@
 然后在项目的build.gradle中添加
 
 	dependencies {
-	    implementation 'com.github.caixiquan:myLinkage:1.0.0' 
+	    implementation 'com.github.caixiquan:myLinkage:1.0.1' 
 	}
 ###使用maven方式依赖
 
@@ -70,25 +70,32 @@ new CustomAlertDialog(MainActivity.this);
      /**
      * 显示信息对话框
      */
-    private void showAlertDialog(boolean cancelable, CustomAlertDialog.OnAlertClickListener listener) {
-        if (alertDialog == null) {
-            alertDialog = new CustomAlertDialog(this);
+    private void showAlertDialog(int selectedColor, int type, CustomAlertDialog.OnAlertClickListener listener) {
+            if (alertDialog == null) {
+                alertDialog = new CustomAlertDialog(this);
+            }
+            alertDialog.setContent(selectedColor,type);
+            alertDialog.setOnAlertClickListener(listener);
+            alertDialog.show();
         }
-        alertDialog.setCancelable(cancelable);
-        alertDialog.setOnAlertClickListener(listener);
-        alertDialog.show();
-    }
 ```    
 在需要使用该功能的控件点击事件中如下使用
 
 ```
-showAlertDialog(true, new CustomAlertDialog.OnAlertClickListener() {
+showAlertDialog(R.color.colorPrimary,alertDialog.THE_SECONDARY_LINKAGE, new CustomAlertDialog.OnAlertClickListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
-                    public void onQuClick(String string) {
-                        addr.setText(string);
+                    public void onQuClick(String province, String city, String district) {
+                        if (city ==  null){
+                            addr.setText(province + district);
+                        }else {
+                            addr.setText(province + city + district);
+                        }
                     }
                 });
 ```
+selectedColor为卡片颜色
+type可以选择两个，一个是三级联动（THE_THREE_LINKAGE）一个是二级联动（THE_SECONDARY_LINKAGE）
 
 <a name="其他"></a>  
 ## 其他  
