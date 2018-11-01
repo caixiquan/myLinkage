@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showAlertDialog(R.color.colorPrimary,alertDialog.THE_SECONDARY_LINKAGE, new CustomAlertDialog.OnAlertClickListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
-                    public void onQuClick(String province, String city, String district) {
+                    public void onQuClick(String province, String city, String district,String code) {
                         if (city ==  null){
                             addr.setText(province + district);
                         }else {

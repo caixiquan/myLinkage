@@ -286,7 +286,7 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
                 city = list.get(position).getName();
                 shi.setText(city);
                 if (type == THE_SECONDARY_LINKAGE){
-                    listener.onQuClick(province,city,"");
+                    listener.onQuClick(province,city,"",city_code);
                     dismiss();
                 }else  if (type == THE_THREE_LINKAGE){
                     qu(city_code);
@@ -346,7 +346,7 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
                 String district_code = list.get(position).getPcode();
                 district = list.get(position).getName();
                 qu.setText(district);
-                listener.onQuClick(province,city,district);
+                listener.onQuClick(province,city,district,district_code);
                 dismiss();
             }
         });
@@ -354,7 +354,7 @@ public class CustomAlertDialog extends Dialog implements View.OnClickListener {
 
     public interface OnAlertClickListener {
 
-        void onQuClick(String province,String city,String district);
+        void onQuClick(String province,String city,String district,String code);
 
     }
 }
