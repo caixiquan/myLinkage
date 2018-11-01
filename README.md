@@ -30,7 +30,8 @@
                 maven { url 'https://jitpack.io' }
 		    }
 	}
-	
+
+
 然后在项目的build.gradle中添加
 
 	dependencies {
